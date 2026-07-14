@@ -122,17 +122,15 @@ public class AdminController {
 		if (principal != null) {
 			String email = principal.getName();
 			User user = userRepository.findByEmail(email);
-
-			String role = user.getRole().toUpperCase();
-			if (role.equalsIgnoreCase("ROLE_ADMIN")) {
-				model.addAttribute("admin", role);
-				model.addAttribute("user", user);
-			} else {
+			if (user != null) {                        // guard against not-found user
+				String role = user.getRole().toUpperCase();
+				if (role.equalsIgnoreCase("ROLE_ADMIN")) {
+					model.addAttribute("admin", role);
+				}
 				model.addAttribute("user", user);
 			}
 		}
 	}
-	
 	
 	// Return to ADMIN DASHBOARD !!
 	@GetMapping("/admin-page") // This "/admin-page" @GetMapping name will be same as given in security
@@ -163,8 +161,10 @@ public class AdminController {
 
 		List<Patient> allPatient = patientService.getAllPatient();
 		model.addAttribute("patientlist", allPatient);
+		
+		
 
-		return "index.html";
+		return "index";
 	}
 
 	@GetMapping("/add-doctor")
@@ -178,7 +178,8 @@ public class AdminController {
 	}
 
 	// #Image Variable uploadDir
-		public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/doctorimages";
+		//public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/doctorimages";
+	    public static String uploadDir = System.getProperty("user.dir") + "/uploads/doctorimages";
 		@PostMapping("/saveDoctor")
 		public String saveDoctor(@ModelAttribute("addDoctor") @RequestBody AddDoctor addDoctor,
 								@RequestParam("doctorImage") MultipartFile file,
@@ -197,8 +198,11 @@ public class AdminController {
 				if(!file.isEmpty())
 				{
 					imageUUID = file.getOriginalFilename();
-					Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
-					Files.write(fileNameAndPath, file.getBytes());	
+					//Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+					//Files.write(fileNameAndPath, file.getBytes());	
+				    Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+					Files.createDirectories(fileNameAndPath.getParent());
+					Files.write(fileNameAndPath, file.getBytes());
 				}
 				else
 				{
@@ -260,8 +264,11 @@ public class AdminController {
 			if(!file.isEmpty())
 			{
 				imageUUID = file.getOriginalFilename();
+				//Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+				//Files.write(fileNameAndPath, file.getBytes());	
 				Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
-				Files.write(fileNameAndPath, file.getBytes());	
+				Files.createDirectories(fileNameAndPath.getParent());
+				Files.write(fileNameAndPath, file.getBytes());
 			}
 			else
 			{
@@ -790,7 +797,7 @@ public class AdminController {
 	{
 		DoctorReport reportDocter = new DoctorReport();
 		model.addAttribute("drp", reportDocter);
-		return ("/add-doctor-wise-report");
+		return ("add-doctor-wise-report");
 
 	}
 

@@ -36,7 +36,7 @@
 							<h2>Your Profile Details</h2>
 							
 							Welcome <span>User</span>
-  				<h5 style="color: red;">Name : [[${user.getFullname()}]]</h5>
+  				<h5 style="color: red;"th:if="${user != null}">Name : [[${user.fullname}]]</h5>
   				<h5 style="color: red;">Email : [[${user.getEmail()}]]</h5>
    				<h5 style="color: green;"> Role : [[${user.role}]]</h5>
 							
