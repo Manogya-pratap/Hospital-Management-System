@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>HR Dashboard</title>
+<style>
+	.header{
+		background-color: rgb(240, 230, 140);
+		align-items: center;
+		justify-content: center;
+		height: 300px;
+	}
+	.header h1{
+		text-align: center;
+		padding-top: 20px;
+	}
+	.container{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+</style>
+</head>
+<body>
+	<div class="header">
+		<h1>HR - DASHBOARD</h1>
+		<hr/>
+		<div class="container">
+			<h2>Welcome HR...!!</h2>
+
+			<h2 th:if="${user != null}">Welcome, [[${user.fullname}]]</h2>
+
+			<span sec:authorize="isAuthenticated()">
+				<a th:href="@{/logout}">Logout</a>
+			</span>
+		</div>
+	</div>
+</body>
+</html>

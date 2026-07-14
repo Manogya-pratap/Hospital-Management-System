@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Hospital - Register</title>
+	<link rel="shortcut icon" href="/img/hospital-icon.png">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/plugins/feather/feather.css">
+	<link rel="stylesheet" href="/plugins/icons/flags/flags.css">
+	<link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<div class="main-wrapper login-body">
+		<div class="login-wrapper">
+			<div class="container">
+				<div class="loginbox">
+					<div class="login-left">
+						<img class="img-fluid" src="/img/2150896634.jpg" alt="Logo">
+					</div>
+					<div class="login-right">
+						<div class="login-right-wrap">
+							<th:block th:if="${session.msg}">
+								<p class="text-left fs-6" style="color:rgb(0, 0, 255);">[[${session.msg}]]</p>
+								<th:block th:text="${@userServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+							<h1>Welcome to The Hospital</h1>
+							<p class="account-subtitle">Have an account? <a th:href="@{/login}">Log in</a></p>
+							<h2>Your Profile Details</h2>
+							
+							Welcome <span>User</span>
+  				<h5 style="color: red;">Name : [[${user.getFullname()}]]</h5>
+  				<h5 style="color: red;">Email : [[${user.getEmail()}]]</h5>
+   				<h5 style="color: green;"> Role : [[${user.role}]]</h5>
+							
+							<div class="login-or">
+								<span class="or-line"></span>
+								<span class="span-or">or</span>
+							</div>
+							<div class="social-login">
+								<a href="#"><i class="fab fa-google-plus-g"></i></a>
+								<a href="#"><i class="fab fa-facebook-f"></i></a>
+								<a href="#"><i class="fab fa-twitter"></i></a>
+								<a href="#"><i class="fab fa-linkedin-in"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery-3.6.0.min.js"></script>
+	<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/feather.min.js"></script>
+	<script src="/js/script.js"></script>
+
+</body>
+
+</html>

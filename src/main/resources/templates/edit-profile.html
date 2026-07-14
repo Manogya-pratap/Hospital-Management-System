@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		<title>Hospital - Register</title>
+		<link rel="shortcut icon" href="/img/hospital-icon.png">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/plugins/feather/feather.css">
+		<link rel="stylesheet" href="/plugins/icons/flags/flags.css">
+		<link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+		<link rel="stylesheet" href="/css/style.css">
+	</head>
+	<body>
+		<div class="main-wrapper login-body">
+			<div class="login-wrapper">
+				<div class="container">
+					<div class="loginbox">
+						<div class="login-left">
+							<img class="img-fluid" src="/img/2150896634.jpg" alt="Logo">
+						</div>
+						<div class="login-right">
+							<div class="login-right-wrap">
+		<th:block th:if="${session.msg}">
+			<p class= "text-left fs-6" style="color:rgb(0, 0, 255);">[[${session.msg}]]</p>
+			<th:block th:text="${@userServiceImpl.removeSessionMessage()}"></th:block>
+		</th:block>
+								<h1>Welcome to The Hospital</h1>
+								<p class="account-subtitle">Have an account? <a th:href="@{/login}">Log in</a></p>
+								<h2>Sign Up</h2>
+								<form name="myform" th:action="@{/registration}" th:object="${user}" method="post" role="form" onsubmit="return validateForm()">
+									<input hidden="hidden" th:field="*{id}">
+									<div class="form-group">
+										<label>Fullname<span class="login-danger">*</span></label>
+										<input input type="text" class="form-control" th:field="*{fullname}" name="fullname" id="fullname" placeholder="Enter Username" >
+										<p id="fullnameError" class="error"></p>
+										<span class="profile-views"><i class="fas fa-user-circle"></i></span>
+									</div>
+                                    <div class="form-group">
+										<label>Email <span class="login-danger">*</span></label>
+										<input input type="email" class="form-control" th:field="*{email}" name="email" id="email" placeholder="Enter Email" >
+										<p id="emailError" class="error"></p>
+										<span class="profile-views"><i class="fas fa-user-circle"></i></span>
+									</div>
+									<!--<div class="form-group">
+										<label>Password <span class="login-danger">*</span></label>
+										<input input type="password" class="form-control pass-input" th:field="*{password}" name="password" id="password" placeholder="Enter Password" >
+										<p id="passwordError" class="error"></p>
+										<span class="profile-views feather-eye toggle-password"></span>
+									</div>
+									
+									<div class="form-group">
+										<label>ROLES<span class="login-danger">*</span></label>
+										<select class="form-control select" name="role" id="role" th:field="*{role}">
+													<option value="">Select Role</option>
+													<option value="ADMIN">ADMIN</option>
+													<option value="USER">USER</option>
+													<option value="DOCTOR">DOCTOR</option>
+													<option value="STAFF">STAFF</option>
+													<option value="PATIENT">PATIENT</option>
+													<option value="NURSE">NURSE</option>
+													<option value="ACCOUNTS">ACCOUNTS</option>
+													<option value="HR">HR</option>
+												</select>
+												<span class="fa fa-caret-down"></span>
+												<p id="roleError" class="error"></p>
+									</div>-->
+									
+									<div class="form-group">
+										<!--<button class="btn btn-primary btn-block" type="submit">Register</button>-->
+										<input type="submit" class="btn btn-primary btn-block" value="Register">  
+									</div>
+								</form>
+								<div class="login-or">
+									<span class="or-line"></span>
+									<span class="span-or">or</span>
+								</div>
+								<div class="social-login">
+									<a href="#"><i class="fab fa-google-plus-g"></i></a>
+									<a href="#"><i class="fab fa-facebook-f"></i></a>
+									<a href="#"><i class="fab fa-twitter"></i></a>
+									<a href="#"><i class="fab fa-linkedin-in"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/js/jquery-3.6.0.min.js"></script>
+		<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="/js/feather.min.js"></script>
+		<script src="/js/script.js"></script>
+		
+		<script>
+			
+		let fullname = document.myform.fullname;
+		let email = document.myform.email;
+		let password = document.myform.password;
+		
+		let flag= 1;
+		
+		function validateForm()
+		{
+			if(fullname.value=="")
+			{
+				document.getElementById("fullnameError").innerHTML= "* Fullname is empty!";
+				flag= 0;
+			}
+				else if(fullname.value.length < 3)
+				{
+					document.getElementById("fullnameError").innerHTML= "* Fullname required minimum 3 characters!";
+					flag= 0;
+				}
+			else
+			{
+				document.getElementById("fullnameError").innerHTML= "";
+				flag= 1;
+			}
+			
+			
+			if(email.value=="")
+			{
+				document.getElementById("emailError").innerHTML= "* Email is empty!";
+				flag= 0;
+			}
+			else
+			{
+				document.getElementById("emailError").innerHTML= "";
+				flag= 1;
+			}
+			
+			<!--if(password.value=="")
+			{
+				document.getElementById("passwordError").innerHTML= "* Password is empty!";
+				flag= 0;
+			}
+				else if(password.value.length < 6)
+				{
+					document.getElementById("passwordError").innerHTML= "* Password must be at least 6 characters long!"
+					flag= 0;
+				}
+			else
+			{
+				document.getElementById("passwordError").innerHTML= "";
+				flag= 1;
+			}
+			
+			if (role.value == "") {
+				document.getElementById("roleError").innerHTML = "* Role is not selected!";
+				flag = 0;
+			}
+			else {
+				document.getElementById("roleError").innerHTML = "";
+				flag = 1;
+			}-->
+			
+			if(flag)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	</script>	
+	
+	</body>
+</html>
