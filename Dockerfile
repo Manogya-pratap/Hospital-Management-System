@@ -2,7 +2,9 @@
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
-RUN mvn -B clean package -DskipTests
+ENV MAVEN_ARGS=""
+ENV MAVEN_OPTS=""
+RUN chmod +x mvnw && ./mvnw -B clean package -DskipTests
 
 # ---- Run stage ----
 FROM eclipse-temurin:17-jre
